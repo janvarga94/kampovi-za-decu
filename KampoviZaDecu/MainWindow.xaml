@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:KampoviZaDecu"
         xmlns:kampoviZaDecu.converters="clr-namespace:KampoviZaDecu.converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="545.018" Width="1177.435">
+        Title="MainWindow" Height="578.605" Width="1177.435">
     <Window.InputBindings>
         <KeyBinding Command="{Binding Obrisi}" Key="F5"/>
     </Window.InputBindings>
@@ -14,7 +14,7 @@
         <kampoviZaDecu.converters:BooleanAndConverter x:Key="booleanAndConverter" />
     </Window.Resources>
     <Grid>
-        <Button Content="Dodaj"  Width="100" Height="35" HorizontalAlignment="Left"  Margin="157,456,0,0" VerticalAlignment="Top"  FontSize="22" Click="Button_Click">
+        <Button Style="{StaticResource MetroButton}" Content="Dodaj"  Width="106" Height="43" HorizontalAlignment="Left"  Margin="157,456,0,0" VerticalAlignment="Top"  FontSize="22" Click="Button_Click">
             <Button.IsEnabled>
                 <MultiBinding Converter="{StaticResource booleanAndConverter}">
                     <Binding ElementName="dodavanjeRadio" Path="IsChecked" />
@@ -58,25 +58,32 @@
             <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=CurrentDete.Plivanje}" Grid.Row="7" Grid.Column="1"  VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
             <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=CurrentDete.IznosKampa}" Grid.Row="8" Grid.Column="1"  VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
         </Grid>
-        <DataGrid Name="tabela" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"  HorizontalAlignment="Left" Height="494" Margin="425,10,0,0" VerticalAlignment="Top" Width="734" SelectedItem="{Binding Path=SelectedDete, Mode=TwoWay}" ItemsSource="{Binding Deca}" PreviewKeyDown="tabela_PreviewKeyDown">
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="FontSize" Value="20"/>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
-            <DataGrid.RowStyle>
-                <Style TargetType="{x:Type DataGridRow}">
-                    <Setter Property="FontSize" Value="18"/>
-                </Style>
-            </DataGrid.RowStyle>
-        </DataGrid>
+        <ScrollViewer HorizontalAlignment="Left" Height="494" Margin="424.843,50.689,0,0" VerticalAlignment="Top" Width="734">
+            <Viewbox  Name="DataGridViewBox" VerticalAlignment="Top">
+                <DataGrid BorderThickness="1" BorderBrush="LightGray" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray"   Name="tabela" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"   SelectedItem="{Binding Path=SelectedDete, Mode=TwoWay}" ItemsSource="{Binding Deca}" PreviewKeyDown="tabela_PreviewKeyDown" VerticalAlignment="Top" LoadingRow="tabela_LoadingRow">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="FontSize" Value="20"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Setter Property="FontSize" Value="18"/>
+                        </Style>
+                    </DataGrid.RowStyle>
+                </DataGrid>
+            </Viewbox>
+        </ScrollViewer>
         <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Projekat :" VerticalAlignment="Top" Height="22.367" Width="79.273" FontSize="16" FontWeight="Bold"/>
         <TextBlock HorizontalAlignment="Left" Height="22.367" Margin="89.273,10,0,0" TextWrapping="Wrap" Text="{Binding NazivProjekta}" VerticalAlignment="Top" Width="197.78" FontStyle="Italic" FontSize="18" TextDecorations="{x:Null}"/>
-        <Button Content="Novi" HorizontalAlignment="Left" Margin="292.053,10,0,0" VerticalAlignment="Top" FontSize="18" Click="Button_Click_1"/>
-        <Button Content="Otvori" HorizontalAlignment="Left"  Margin="344.498,9.943,0,0" VerticalAlignment="Top" FontSize="18" Click="Button_Click_2"/>
+        <Button Style="{StaticResource MetroButton}" Content="Novi" HorizontalAlignment="Left" Margin="282,10,0,0" VerticalAlignment="Top" FontSize="18" Click="Button_Click_1"/>
+        <Button Style="{StaticResource MetroButton}" Content="Otvori" HorizontalAlignment="Left"  Margin="344.498,9.943,0,0" VerticalAlignment="Top" FontSize="18" Click="Button_Click_2"/>
         <RadioButton Name="dodavanjeRadio" GroupName="dodIz" IsChecked="True" Content="Dodavanje" HorizontalAlignment="Left" Margin="10,50.689,0,0" VerticalAlignment="Top" FontSize="16"/>
         <RadioButton IsEnabled="False" Name="izmenaRadio" GroupName="dodIz" Content="Izmena" HorizontalAlignment="Left" Margin="125,50.689,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Button IsEnabled="{Binding ProjekatOdabran}" Content="Sacuvaj izmene" HorizontalAlignment="Left" Margin="292,47,0,0" VerticalAlignment="Top" Width="105" Height="24" Click="Button_Click_3"/>
+        <Button Style="{StaticResource MetroButton}" IsEnabled="{Binding ProjekatOdabran}" Content="Sačuvaj izmene" HorizontalAlignment="Left" Margin="282,51,0,0" VerticalAlignment="Top" Width="131" Height="29" Click="Button_Click_3"/>
 
+        <Button Style="{StaticResource MetroButton}" Content="Štampaj" HorizontalAlignment="Left"  Margin="1044,10,0,0" VerticalAlignment="Top" FontSize="18" Click="Button_Click_4" Width="96"/>
+        <TextBox Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="27.94" Margin="515.012,10.1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="141" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
+        <Label Content="Search" HorizontalAlignment="Left" Margin="457.999,10.1,0,0" VerticalAlignment="Top" FontSize="16"/>
     </Grid>
 </Window>

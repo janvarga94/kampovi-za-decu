@@ -127,16 +127,39 @@ namespace KampoviZaDecu
             }
         }
 
+        private ICollectionView _collectionView;
+
+        private string _search = "";
+        public string Search
+        {
+            get { return _search; }
+            set
+            {
+                _search = value;
+                NotifyPropertyChanged(nameof(Search));
+                _collectionView.Refresh();
+            }
+        }
 
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
 
+            _collectionView = CollectionViewSource.GetDefaultView(Deca);
+
+
             for (int i = 0; i < App.DecaHeader.Length; i++)
                 tabela.Columns.Add(new DataGridTextColumn() { Header = App.DecaHeader[i], Binding = new Binding(typeof(Dete).GetProperties().Select(p => p.Name).ElementAt(i)) });
 
             dodavanjeRadio.Checked += DodavanjeRadio_Checked;
+
+            _collectionView.Filter = (object dete) =>
+            {
+                var ddete = (Dete) dete;
+                return  ddete.Ime.ToLower().Contains(_search.ToLower()) ||
+                        ddete.Prezime.ToLower().Contains(_search.ToLower());
+            };
         }
 
         private void DodavanjeRadio_Checked(object sender, RoutedEventArgs e)
@@ -232,6 +255,26 @@ namespace KampoviZaDecu
             {
                 MessageBox.Show("Neka greska prilikom cuvanja, mozda je fajl zauzet :/, zatvorite excel mozda");
             }
+        }
+
+        //print
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            PrintDialog pd = new PrintDialog();
+
+            if ((pd.ShowDialog() == true))
+            {
+                tabela.Margin = new Thickness(30, 10, 20, 20);
+
+                pd.PrintVisual(DataGridViewBox, "Printing a UserControl");
+
+                tabela.Margin = new Thickness(0, 0, 0, 0);
+            }
+        }
+
+        private void tabela_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
     }
 }
