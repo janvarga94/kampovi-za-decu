@@ -29,6 +29,7 @@
             <Setter Property="Padding" Value="10 5"/>
             <Setter Property="FontSize" Value="14" />
             <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="BorderBrush" Value="#FF3A3A3A"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">

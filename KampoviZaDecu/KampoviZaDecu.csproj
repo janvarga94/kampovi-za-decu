@@ -55,7 +55,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="converters\BooleanAndConverter.cs" />
-    <Compile Include="CsvToObservableCollectionDece.cs" />
+    <Compile Include="FileThings.cs" />
     <Compile Include="Stanje.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -97,6 +97,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

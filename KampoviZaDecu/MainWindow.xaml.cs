@@ -150,16 +150,66 @@ namespace KampoviZaDecu
 
 
             for (int i = 0; i < App.DecaHeader.Length; i++)
-                tabela.Columns.Add(new DataGridTextColumn() { Header = App.DecaHeader[i], Binding = new Binding(typeof(Dete).GetProperties().Select(p => p.Name).ElementAt(i)) });
+            {
+                var current = App.DecaHeader[i];
+                var currentDeteProperty = typeof(Dete).GetProperties().ElementAt(i);
+                var nameOfCurrentDeteProperty = typeof(Dete).GetProperties().Select(p => p.Name).ElementAt(i);
+                
+                deteForm.RowDefinitions.Add(new RowDefinition());
+
+                var label = new Label() { Content = current, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top, FontSize = 20 };
+                Grid.SetColumn(label, 0);
+                Grid.SetRow(label, i);
+
+                deteForm.Children.Add(label);
+
+                if (currentDeteProperty.PropertyType == typeof(string))
+                {
+                    tabela.Columns.Add(new DataGridTextColumn() { Header = current, Binding = new Binding(nameOfCurrentDeteProperty) });
+
+                    var textBox = new TextBox() { HorizontalAlignment = HorizontalAlignment.Stretch, TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, HorizontalContentAlignment = HorizontalAlignment.Center, FontSize = 20 };
+                    Binding binding = new Binding();
+                    binding.Path = new PropertyPath(nameof(CurrentDete) + "." + nameOfCurrentDeteProperty);
+                    binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+                    BindingOperations.SetBinding(textBox, TextBox.TextProperty, binding);
+                    Grid.SetColumn(textBox, 1);
+                    Grid.SetRow(textBox, i);
+
+                    deteForm.Children.Add(textBox);
+                }
+                else if (currentDeteProperty.PropertyType == typeof(bool))
+                {
+                    tabela.Columns.Add(new DataGridCheckBoxColumn() { Header = current, Binding = new Binding(nameOfCurrentDeteProperty) });
+
+                    var textBox = new CheckBox() { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
+                    Binding binding = new Binding();
+                    binding.Path = new PropertyPath(nameof(CurrentDete) + "." + nameOfCurrentDeteProperty);
+                    binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+                    BindingOperations.SetBinding(textBox, CheckBox.IsCheckedProperty , binding);
+                    Grid.SetColumn(textBox, 1);
+                    Grid.SetRow(textBox, i);
+
+                    deteForm.Children.Add(textBox);
+                }
+
+            }
 
             dodavanjeRadio.Checked += DodavanjeRadio_Checked;
 
             _collectionView.Filter = (object dete) =>
             {
-                var ddete = (Dete) dete;
-                return  ddete.Ime.ToLower().Contains(_search.ToLower()) ||
+                try
+                {
+                    var ddete = (Dete)dete;
+                    return ddete.Ime.ToLower().Contains(_search.ToLower()) ||
                         ddete.Prezime.ToLower().Contains(_search.ToLower());
+                }
+                catch { return true; }
             };
+
+
         }
 
         private void DodavanjeRadio_Checked(object sender, RoutedEventArgs e)
@@ -225,7 +275,8 @@ namespace KampoviZaDecu
             openFileDialog1.RestoreDirectory = true;
 
             openFileDialog1.ShowDialog();
-            OdaberiProjekatDaRadimSaNjim(openFileDialog1.FileName);
+            if (!string.IsNullOrWhiteSpace(openFileDialog1.FileName))
+                OdaberiProjekatDaRadimSaNjim(openFileDialog1.FileName);
         }
 
         private void OdaberiProjekatDaRadimSaNjim(string fullPath)
@@ -233,7 +284,7 @@ namespace KampoviZaDecu
             try
             {
                 CurrentProjekatPath = fullPath;
-                var parsedDeca = CsvToObservableCollectionDece.Parse(fullPath);
+                var parsedDeca = FileThings.Parse(fullPath);
                 Deca.Clear();
                 foreach (var dete in parsedDeca)
                 {
@@ -251,7 +302,7 @@ namespace KampoviZaDecu
         //save
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            if (!CsvToObservableCollectionDece.Save(CurrentProjekatPath, Deca))
+            if (!FileThings.Save(CurrentProjekatPath, Deca))
             {
                 MessageBox.Show("Neka greska prilikom cuvanja, mozda je fajl zauzet :/, zatvorite excel mozda");
             }

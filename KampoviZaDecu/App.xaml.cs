@@ -18,6 +18,7 @@ namespace KampoviZaDecu
             "Tel. roditelja",
             "Engleski",
             "Sport",
+            "Sport, koji",
             "Plivanje",
             "Iznos kampa"
         };

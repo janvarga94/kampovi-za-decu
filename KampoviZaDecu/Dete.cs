@@ -13,8 +13,9 @@ namespace KampoviZaDecu
         public string Razred { get; set; }
         public string Adresa { get; set; }
         public string TelRod { get; set; }
-        public string Engleski { get; set; }
-        public string Sport { get; set; }
+        public bool Engleski { get; set; }
+        public bool Sport { get; set; }
+        public string KojiSport { get; set; }
         public string Plivanje { get; set; }
         public string IznosKampa { get; set; }
     }

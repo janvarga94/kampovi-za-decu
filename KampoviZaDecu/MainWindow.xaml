@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:KampoviZaDecu"
         xmlns:kampoviZaDecu.converters="clr-namespace:KampoviZaDecu.converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="578.605" Width="1177.435">
+        Title="MainWindow" Height="584.605" Width="1177.435" Background="WhiteSmoke">
     <Window.InputBindings>
         <KeyBinding Command="{Binding Obrisi}" Key="F5"/>
     </Window.InputBindings>
@@ -14,7 +14,7 @@
         <kampoviZaDecu.converters:BooleanAndConverter x:Key="booleanAndConverter" />
     </Window.Resources>
     <Grid>
-        <Button Style="{StaticResource MetroButton}" Content="Dodaj"  Width="106" Height="43" HorizontalAlignment="Left"  Margin="157,456,0,0" VerticalAlignment="Top"  FontSize="22" Click="Button_Click">
+        <Button Style="{StaticResource MetroButton}" Content="Dodaj"  Width="109" Height="35" HorizontalAlignment="Left"  Margin="179,502.605,0,0" VerticalAlignment="Top"  FontSize="18" Click="Button_Click">
             <Button.IsEnabled>
                 <MultiBinding Converter="{StaticResource booleanAndConverter}">
                     <Binding ElementName="dodavanjeRadio" Path="IsChecked" />
@@ -23,40 +23,11 @@
             </Button.IsEnabled>
         </Button>
         <Label Content="Label" HorizontalAlignment="Left" Height="0" Margin="233.071,50.689,0,0" VerticalAlignment="Top" Width="12.014"/>
-        <Grid HorizontalAlignment="Left" Height="341.451" Margin="10,79.716,0,0" VerticalAlignment="Top" Width="398.955">
+        <Grid Name="deteForm" HorizontalAlignment="Left" Height="363" Margin="10,94,0,0" VerticalAlignment="Top" Width="399">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition  />
                 <ColumnDefinition  />
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition  />
-                <RowDefinition  />
-                <RowDefinition  />
-                <RowDefinition  />
-                <RowDefinition  />
-                <RowDefinition  />
-                <RowDefinition  />
-                <RowDefinition  />
-            </Grid.RowDefinitions>
-            <Label Content="Ime" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="20" />
-            <Label Content="Prezime" HorizontalAlignment="Left"   VerticalAlignment="Top"  Grid.Row="1" FontSize="20"/>
-            <Label Content="Razred" HorizontalAlignment="Left"   VerticalAlignment="Top"  Grid.Row="2" FontSize="20"/>
-            <Label Content="Adresa" HorizontalAlignment="Left"   VerticalAlignment="Top"  Grid.Row="3" FontSize="20"/>
-            <Label Content="Mob. roditelja" HorizontalAlignment="Left"   VerticalAlignment="Top"  Grid.Row="4" FontSize="20"/>
-            <Label Content="Engleski" HorizontalAlignment="Left"   VerticalAlignment="Top"  Grid.Row="5" FontSize="20"/>
-            <Label Content="Sport" HorizontalAlignment="Left"   VerticalAlignment="Top"  Grid.Row="6" FontSize="20"/>
-            <Label Content="Plivanje" HorizontalAlignment="Left"   VerticalAlignment="Top"  Grid.Row="7" FontSize="20" />
-            <Label Content="Iznos kampa" HorizontalAlignment="Left"   VerticalAlignment="Top"  Grid.Row="8" FontSize="20" />
-            <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=CurrentDete.Ime}" Grid.Column="1"  VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
-            <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=CurrentDete.Prezime}" Grid.Row="1" Grid.Column="1"  VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
-            <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=CurrentDete.Razred}" Grid.Row="2" Grid.Column="1"  VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
-            <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=CurrentDete.Adresa}" Grid.Row="3" Grid.Column="1"  VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
-            <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=CurrentDete.TelRod}" Grid.Row="4" Grid.Column="1"  VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
-            <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=CurrentDete.Engleski}" Grid.Row="5" Grid.Column="1"  VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
-            <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=CurrentDete.Sport}" Grid.Row="6" Grid.Column="1"  VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
-            <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=CurrentDete.Plivanje}" Grid.Row="7" Grid.Column="1"  VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
-            <TextBox HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=CurrentDete.IznosKampa}" Grid.Row="8" Grid.Column="1"  VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="20"/>
         </Grid>
         <ScrollViewer HorizontalAlignment="Left" Height="494" Margin="424.843,50.689,0,0" VerticalAlignment="Top" Width="734">
             <Viewbox  Name="DataGridViewBox" VerticalAlignment="Top">
@@ -74,16 +45,16 @@
                 </DataGrid>
             </Viewbox>
         </ScrollViewer>
-        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Projekat :" VerticalAlignment="Top" Height="22.367" Width="79.273" FontSize="16" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Height="22.367" Margin="89.273,10,0,0" TextWrapping="Wrap" Text="{Binding NazivProjekta}" VerticalAlignment="Top" Width="197.78" FontStyle="Italic" FontSize="18" TextDecorations="{x:Null}"/>
+        <TextBlock HorizontalAlignment="Left" Margin="23,14.942,0,0" TextWrapping="Wrap" Text="Projekat :" VerticalAlignment="Top" Height="22.367" Width="79.273" FontSize="18" FontStyle="Italic"/>
+        <TextBlock HorizontalAlignment="Left" Height="31.806" Margin="23,42.309,0,0" TextWrapping="Wrap" Text="{Binding NazivProjekta}" VerticalAlignment="Top" Width="254" FontSize="20" TextDecorations="{x:Null}"/>
         <Button Style="{StaticResource MetroButton}" Content="Novi" HorizontalAlignment="Left" Margin="282,10,0,0" VerticalAlignment="Top" FontSize="18" Click="Button_Click_1"/>
         <Button Style="{StaticResource MetroButton}" Content="Otvori" HorizontalAlignment="Left"  Margin="344.498,9.943,0,0" VerticalAlignment="Top" FontSize="18" Click="Button_Click_2"/>
-        <RadioButton Name="dodavanjeRadio" GroupName="dodIz" IsChecked="True" Content="Dodavanje" HorizontalAlignment="Left" Margin="10,50.689,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <RadioButton IsEnabled="False" Name="izmenaRadio" GroupName="dodIz" Content="Izmena" HorizontalAlignment="Left" Margin="125,50.689,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <RadioButton Name="dodavanjeRadio" GroupName="dodIz" IsChecked="True" Content="Dodavanje" HorizontalAlignment="Left" Margin="10,486.338,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <RadioButton IsEnabled="False" Name="izmenaRadio" GroupName="dodIz" Content="Izmena" HorizontalAlignment="Left" Margin="10,506.618,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Button Style="{StaticResource MetroButton}" IsEnabled="{Binding ProjekatOdabran}" Content="Sačuvaj izmene" HorizontalAlignment="Left" Margin="282,51,0,0" VerticalAlignment="Top" Width="131" Height="29" Click="Button_Click_3"/>
 
-        <Button Style="{StaticResource MetroButton}" Content="Štampaj" HorizontalAlignment="Left"  Margin="1044,10,0,0" VerticalAlignment="Top" FontSize="18" Click="Button_Click_4" Width="96"/>
-        <TextBox Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="27.94" Margin="515.012,10.1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="141" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
-        <Label Content="Search" HorizontalAlignment="Left" Margin="457.999,10.1,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Button Style="{StaticResource MetroButton}" Content="Štampaj" HorizontalAlignment="Left"  Margin="1056,15.381,0,0" VerticalAlignment="Top" FontSize="14" Click="Button_Click_4" Width="85" Height="28.998"/>
+        <TextBox Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="32.784" Margin="483.856,11.099,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
+        <Label BorderThickness="1" Content="Search" HorizontalAlignment="Left" Margin="424.843,11.099,0,0" VerticalAlignment="Top" FontSize="16" BorderBrush="#FFE8BBBB"/>
     </Grid>
 </Window>
