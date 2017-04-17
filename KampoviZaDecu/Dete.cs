@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace KampoviZaDecu
 {
     public class Dete
     {
+        [Required]
         public string Ime { get; set; }
+
+        [Required]
         public string Prezime { get; set; }
+
         public string Razred { get; set; }
         public string Adresa { get; set; }
         public string TelRod { get; set; }

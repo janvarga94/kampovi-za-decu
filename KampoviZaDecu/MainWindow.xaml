@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:KampoviZaDecu"
         xmlns:kampoviZaDecu.converters="clr-namespace:KampoviZaDecu.converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="584.605" Width="1177.435" Background="WhiteSmoke">
+        Title="Kampovi" Height="584.605" Width="1177.435" Background="WhiteSmoke">
     <Window.InputBindings>
         <KeyBinding Command="{Binding Obrisi}" Key="F5"/>
     </Window.InputBindings>
@@ -19,6 +19,8 @@
                 <MultiBinding Converter="{StaticResource booleanAndConverter}">
                     <Binding ElementName="dodavanjeRadio" Path="IsChecked" />
                     <Binding Path="ProjekatOdabran" />
+                    <Binding Path="CurrentDete.Ime" />
+                    <Binding Path="CurrentDete.Prezime" />
                 </MultiBinding>
             </Button.IsEnabled>
         </Button>
@@ -29,20 +31,22 @@
                 <ColumnDefinition  />
             </Grid.ColumnDefinitions>
         </Grid>
-        <ScrollViewer HorizontalAlignment="Left" Height="494" Margin="424.843,50.689,0,0" VerticalAlignment="Top" Width="734">
+        <ScrollViewer Name="scrollVwrZaTabelu" HorizontalAlignment="Left" Height="494" Margin="424.843,50.689,0,0" VerticalAlignment="Top" Width="734">
             <Viewbox  Name="DataGridViewBox" VerticalAlignment="Top">
-                <DataGrid BorderThickness="1" BorderBrush="LightGray" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray"   Name="tabela" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"   SelectedItem="{Binding Path=SelectedDete, Mode=TwoWay}" ItemsSource="{Binding Deca}" PreviewKeyDown="tabela_PreviewKeyDown" VerticalAlignment="Top" LoadingRow="tabela_LoadingRow">
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="FontSize" Value="20"/>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
-                    <DataGrid.RowStyle>
-                        <Style TargetType="{x:Type DataGridRow}">
-                            <Setter Property="FontSize" Value="18"/>
-                        </Style>
-                    </DataGrid.RowStyle>
-                </DataGrid>
+                <Border Name="DataGridBorder">
+                    <DataGrid BorderThickness="1" BorderBrush="LightGray" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray"   Name="tabela" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"   SelectedItem="{Binding Path=SelectedDete, Mode=TwoWay}" ItemsSource="{Binding Deca}" PreviewKeyDown="tabela_PreviewKeyDown" VerticalAlignment="Top" LoadingRow="tabela_LoadingRow">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="FontSize" Value="20"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <Setter Property="FontSize" Value="18"/>
+                            </Style>
+                        </DataGrid.RowStyle>
+                    </DataGrid>
+                </Border>
             </Viewbox>
         </ScrollViewer>
         <TextBlock HorizontalAlignment="Left" Margin="23,14.942,0,0" TextWrapping="Wrap" Text="Projekat :" VerticalAlignment="Top" Height="22.367" Width="79.273" FontSize="18" FontStyle="Italic"/>

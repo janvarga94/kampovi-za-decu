@@ -13,6 +13,13 @@ namespace KampoviZaDecu.converters
         {
             foreach (object value in values)
             {
+                if (value is null)
+                    return false;
+                if (value is string) {
+                    var val = (string)value;
+                    if (val == "") return false;
+                }
+
                 if ((value is bool) && (bool)value == false)
                 {
                     return false;

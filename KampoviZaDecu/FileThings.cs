@@ -10,11 +10,15 @@ namespace KampoviZaDecu
     public class FileThings
     {
         public static IEnumerable<Dete> Parse(string filePath) {
+#if DEBUG
+            return DecaGenerator.Generate(40);
+#endif
+            var deca = new List<Dete>();
             foreach (var line in File.ReadAllLines(filePath).Skip(1)) {
                 var splited = line.Split(';');
-                if(splited.Length >= App.DecaHeader.Length)
+                if(splited.Length >= typeof(Dete).GetProperties().Length)
                 {
-                    yield return new Dete() {
+                    deca.Add( new Dete() {
                         Ime = splited[0],
                         Prezime = splited[1],
                         Razred = splited[2],
@@ -25,9 +29,10 @@ namespace KampoviZaDecu
                         KojiSport = splited[7],
                         Plivanje = splited[8],
                         IznosKampa = splited[9]
-                    };
+                    });
                 }
             }
+            return deca;
         }
 
         public static bool Save(string filePath, IEnumerable<Dete> deca) {
@@ -39,7 +44,7 @@ namespace KampoviZaDecu
                 File.WriteAllText(filePath, csv);
                 return true;
             }
-            catch
+            catch(Exception e)
             {
                 return false;
             }

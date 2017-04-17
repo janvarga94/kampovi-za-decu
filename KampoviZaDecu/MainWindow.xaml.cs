@@ -177,6 +177,14 @@ namespace KampoviZaDecu
                     Grid.SetRow(textBox, i);
 
                     deteForm.Children.Add(textBox);
+
+                    if (currentDeteProperty == typeof(Dete).GetProperty(nameof(Dete.KojiSport)))
+                    {
+                        Binding binding2 = new Binding();
+                        binding2.Path = new PropertyPath(nameof(CurrentDete) + "." + nameof(CurrentDete.Sport));
+                        binding2.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                        BindingOperations.SetBinding(textBox, TextBox.IsEnabledProperty, binding2);
+                    }
                 }
                 else if (currentDeteProperty.PropertyType == typeof(bool))
                 {
@@ -191,7 +199,8 @@ namespace KampoviZaDecu
                     Grid.SetColumn(textBox, 1);
                     Grid.SetRow(textBox, i);
 
-                    deteForm.Children.Add(textBox);
+                    deteForm.Children.Add(textBox);          
+
                 }
 
             }
@@ -200,13 +209,13 @@ namespace KampoviZaDecu
 
             _collectionView.Filter = (object dete) =>
             {
-                try
-                {
-                    var ddete = (Dete)dete;
+                var ddete = (Dete)dete;
+                if(ddete.Ime != null && ddete.Prezime != null)
                     return ddete.Ime.ToLower().Contains(_search.ToLower()) ||
                         ddete.Prezime.ToLower().Contains(_search.ToLower());
-                }
-                catch { return true; }
+
+                Console.WriteLine("Bro, ovo ispravi");
+                return false; //this shouldnt be happening
             };
 
 
@@ -219,9 +228,9 @@ namespace KampoviZaDecu
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Deca.Add(CurrentDete);
-            CurrentDete = null;
+        {      
+                Deca.Add(CurrentDete);
+                CurrentDete = null;
         }
 
         private void tabela_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -309,13 +318,15 @@ namespace KampoviZaDecu
         }
 
         //print
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private async void Button_Click_4(object sender, RoutedEventArgs e)
         {
             PrintDialog pd = new PrintDialog();
 
             if ((pd.ShowDialog() == true))
             {
-                tabela.Margin = new Thickness(30, 10, 20, 20);
+                tabela.Margin = new Thickness(50, 50, 0, 0);
+
+                await Task.Delay(200);
 
                 pd.PrintVisual(DataGridViewBox, "Printing a UserControl");
 
