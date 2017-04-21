@@ -20,6 +20,8 @@ namespace KampoviZaDecu
         public string TelRod { get; set; }
         public bool Engleski { get; set; }
         public bool Sport { get; set; }
+
+        [EnabledFor(nameof(Sport))]
         public string KojiSport { get; set; }
         public string Plivanje { get; set; }
         public string IznosKampa { get; set; }

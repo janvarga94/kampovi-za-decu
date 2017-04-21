@@ -56,8 +56,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="converters\BooleanAndConverter.cs" />
-    <Compile Include="DecaGenerator.cs" />
+    <Compile Include="EnabledForAttribute.cs" />
+    <Compile Include="generators\DataGridGenerator.cs" />
+    <Compile Include="generators\DecaGenerator.cs" />
     <Compile Include="FileThings.cs" />
+    <Compile Include="generators\FormGenerator.cs" />
+    <Compile Include="helpers\ReflectionHelper.cs" />
     <Compile Include="Stanje.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -25,12 +25,7 @@
             </Button.IsEnabled>
         </Button>
         <Label Content="Label" HorizontalAlignment="Left" Height="0" Margin="233.071,50.689,0,0" VerticalAlignment="Top" Width="12.014"/>
-        <Grid Name="deteForm" HorizontalAlignment="Left" Height="363" Margin="10,94,0,0" VerticalAlignment="Top" Width="399">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition  />
-                <ColumnDefinition  />
-            </Grid.ColumnDefinitions>
-        </Grid>
+        <Grid Name="deteForm" HorizontalAlignment="Left" Height="363" Margin="10,94,0,0" VerticalAlignment="Top" Width="399"/>
         <ScrollViewer Name="scrollVwrZaTabelu" HorizontalAlignment="Left" Height="494" Margin="424.843,50.689,0,0" VerticalAlignment="Top" Width="734">
             <Viewbox  Name="DataGridViewBox" VerticalAlignment="Top">
                 <Border Name="DataGridBorder">
@@ -53,7 +48,7 @@
         <TextBlock HorizontalAlignment="Left" Height="31.806" Margin="23,42.309,0,0" TextWrapping="Wrap" Text="{Binding NazivProjekta}" VerticalAlignment="Top" Width="254" FontSize="20" TextDecorations="{x:Null}"/>
         <Button Style="{StaticResource MetroButton}" Content="Novi" HorizontalAlignment="Left" Margin="282,10,0,0" VerticalAlignment="Top" FontSize="18" Click="Button_Click_1"/>
         <Button Style="{StaticResource MetroButton}" Content="Otvori" HorizontalAlignment="Left"  Margin="344.498,9.943,0,0" VerticalAlignment="Top" FontSize="18" Click="Button_Click_2"/>
-        <RadioButton Name="dodavanjeRadio" GroupName="dodIz" IsChecked="True" Content="Dodavanje" HorizontalAlignment="Left" Margin="10,486.338,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <RadioButton Name="dodavanjeRadio" GroupName="dodIz" IsChecked="True" Content="Dodavanje" HorizontalAlignment="Left" Margin="10,486.338,0,0" VerticalAlignment="Top" FontSize="16" Checked="dodavanjeRadio_Checked_1"/>
         <RadioButton IsEnabled="False" Name="izmenaRadio" GroupName="dodIz" Content="Izmena" HorizontalAlignment="Left" Margin="10,506.618,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Button Style="{StaticResource MetroButton}" IsEnabled="{Binding ProjekatOdabran}" Content="Sačuvaj izmene" HorizontalAlignment="Left" Margin="282,51,0,0" VerticalAlignment="Top" Width="131" Height="29" Click="Button_Click_3"/>
 

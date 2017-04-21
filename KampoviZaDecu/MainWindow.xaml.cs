@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using KampoviZaDecu.generators;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -148,65 +149,9 @@ namespace KampoviZaDecu
 
             _collectionView = CollectionViewSource.GetDefaultView(Deca);
 
-
-            for (int i = 0; i < App.DecaHeader.Length; i++)
-            {
-                var current = App.DecaHeader[i];
-                var currentDeteProperty = typeof(Dete).GetProperties().ElementAt(i);
-                var nameOfCurrentDeteProperty = typeof(Dete).GetProperties().Select(p => p.Name).ElementAt(i);
-                
-                deteForm.RowDefinitions.Add(new RowDefinition());
-
-                var label = new Label() { Content = current, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top, FontSize = 20 };
-                Grid.SetColumn(label, 0);
-                Grid.SetRow(label, i);
-
-                deteForm.Children.Add(label);
-
-                if (currentDeteProperty.PropertyType == typeof(string))
-                {
-                    tabela.Columns.Add(new DataGridTextColumn() { Header = current, Binding = new Binding(nameOfCurrentDeteProperty) });
-
-                    var textBox = new TextBox() { HorizontalAlignment = HorizontalAlignment.Stretch, TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, HorizontalContentAlignment = HorizontalAlignment.Center, FontSize = 20 };
-                    Binding binding = new Binding();
-                    binding.Path = new PropertyPath(nameof(CurrentDete) + "." + nameOfCurrentDeteProperty);
-                    binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-
-                    BindingOperations.SetBinding(textBox, TextBox.TextProperty, binding);
-                    Grid.SetColumn(textBox, 1);
-                    Grid.SetRow(textBox, i);
-
-                    deteForm.Children.Add(textBox);
-
-                    if (currentDeteProperty == typeof(Dete).GetProperty(nameof(Dete.KojiSport)))
-                    {
-                        Binding binding2 = new Binding();
-                        binding2.Path = new PropertyPath(nameof(CurrentDete) + "." + nameof(CurrentDete.Sport));
-                        binding2.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                        BindingOperations.SetBinding(textBox, TextBox.IsEnabledProperty, binding2);
-                    }
-                }
-                else if (currentDeteProperty.PropertyType == typeof(bool))
-                {
-                    tabela.Columns.Add(new DataGridCheckBoxColumn() { Header = current, Binding = new Binding(nameOfCurrentDeteProperty) });
-
-                    var textBox = new CheckBox() { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
-                    Binding binding = new Binding();
-                    binding.Path = new PropertyPath(nameof(CurrentDete) + "." + nameOfCurrentDeteProperty);
-                    binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-
-                    BindingOperations.SetBinding(textBox, CheckBox.IsCheckedProperty , binding);
-                    Grid.SetColumn(textBox, 1);
-                    Grid.SetRow(textBox, i);
-
-                    deteForm.Children.Add(textBox);          
-
-                }
-
-            }
-
-            dodavanjeRadio.Checked += DodavanjeRadio_Checked;
-
+            new DataGridGenerator().Generate(typeof(Dete), App.DecaHeader, tabela);
+            new FormGenerator().Generate(CurrentDete, nameof(CurrentDete), App.DecaHeader, deteForm);
+    
             _collectionView.Filter = (object dete) =>
             {
                 var ddete = (Dete)dete;
@@ -218,14 +163,11 @@ namespace KampoviZaDecu
                 return false; //this shouldnt be happening
             };
 
-
         }
 
-        private void DodavanjeRadio_Checked(object sender, RoutedEventArgs e)
-        {
-            if (((RadioButton)e.Source).IsChecked == true)
-                Stanje = Stanje.Dodavanje;
-        }
+        //
+        //---------------------------------------------------- events ------------------------------------------
+        //
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {      
@@ -337,6 +279,12 @@ namespace KampoviZaDecu
         private void tabela_LoadingRow(object sender, DataGridRowEventArgs e)
         {
             e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+        }
+
+        private void dodavanjeRadio_Checked_1(object sender, RoutedEventArgs e)
+        {
+            if (((RadioButton)e.Source).IsChecked == true)
+                Stanje = Stanje.Dodavanje;
         }
     }
 }
