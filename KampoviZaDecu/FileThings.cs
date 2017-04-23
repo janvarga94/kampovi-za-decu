@@ -9,15 +9,17 @@ namespace KampoviZaDecu
 {
     public class FileThings
     {
+
         public static IEnumerable<Dete> Parse(string filePath) {
-#if DEBUG
-            return DecaGenerator.Generate(40);
-#endif
+
+           // return DecaGenerator.Generate(40);
+
             var deca = new List<Dete>();
             foreach (var line in File.ReadAllLines(filePath).Skip(1)) {
-                var splited = line.Split(';');
+                var splited = line.Split(App.CsvDelemiter);
                 if(splited.Length >= typeof(Dete).GetProperties().Length)
                 {
+                    splited = splited.Select(sp => sp.Replace("\"","")).ToArray();
                     deca.Add( new Dete() {
                         Ime = splited[0],
                         Prezime = splited[1],
@@ -36,7 +38,7 @@ namespace KampoviZaDecu
         }
 
         public static bool Save(string filePath, IEnumerable<Dete> deca) {
-            var csvHeader = string.Join(";", App.DecaHeader);
+            var csvHeader = string.Join(App.CsvDelemiter.ToString(), App.DecaHeader);
             var csvContentBody = string.Join("\n", deca.Select(GetCommaSeparatedDete));
             var csv = csvHeader + "\n" + csvContentBody;
             try
@@ -56,8 +58,8 @@ namespace KampoviZaDecu
             for (int i = 0; i < typeof(Dete).GetProperties().Length; i++)
             {
                 var currentDeteProperty = typeof(Dete).GetProperties().ElementAt(i);
-                var value = currentDeteProperty.GetValue(dete);
-                result += value?.ToString() + ";";
+                var value = "\"" + currentDeteProperty.GetValue(dete) + "\"";
+                result += value?.ToString() + App.CsvDelemiter.ToString();
             }
             return result;
         }

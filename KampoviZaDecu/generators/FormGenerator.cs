@@ -111,8 +111,8 @@ namespace KampoviZaDecu.generators
 
         private static void ControlViewToCreate_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("^-?[0-9]*\\.[0-9]*");
-            e.Handled = regex.IsMatch(e.Text);
+            Regex regex = new Regex(@"^-?\d*[.]?\d*$");
+            e.Handled = !regex.IsMatch(e.Text);
         }
 
         private static Control CreateControlForPropertyOfUnknowType(string modelNameOfLocalProperty, System.Reflection.PropertyInfo modelProperty)

@@ -82,10 +82,57 @@ namespace KampoviZaDecu.generators
                 }
                 else if (modelProperty.PropertyType.IsNumber())
                 {
-                    TextBox textbox;
-                    controlViewToCreate = textbox = CreateControlForNumericProperty(modelNameOfLocalProperty, modelProperty);
-                    textbox.TextChanged += TextBox_TextChanged;
-                    //TODO filter
+                    var boxes = CreateControlForNumericProperty(modelNameOfLocalProperty, modelProperty);
+                    boxes.Item1.TextChanged += TextBox_TextChanged;
+                    boxes.Item2.TextChanged += TextBox_TextChanged;
+
+                    var subGrid = new Grid();
+                    subGrid.RowDefinitions.Add(new RowDefinition());
+                    subGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                    subGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(30)});
+                    subGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+                    var lab = new Label() { Content = "do", VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center };
+
+                    Grid.SetColumn(boxes.Item1, 0);
+                    Grid.SetRow(boxes.Item1, 0);
+
+                    Grid.SetColumn(lab, 1);
+                    Grid.SetRow(lab, 0);
+
+                    Grid.SetColumn(boxes.Item2, 2);
+                    Grid.SetRow(boxes.Item2, 0);
+
+                    subGrid.Children.Add(boxes.Item1);
+                    subGrid.Children.Add(boxes.Item2);
+                    subGrid.Children.Add(lab);
+
+
+                    Grid.SetColumn(subGrid, 2);
+                    Grid.SetRow(subGrid, i);
+
+                    grid.Children.Add(subGrid);
+
+                    predicates.Add(dete => {
+                        if (filterForPropertyEnabledCheckbox.IsChecked == true)
+                        {
+                            try
+                            {
+                                if(
+                                    double.Parse(boxes.Item1.Text) > ((double)modelProperty.GetValue(dete)) ||
+                                    double.Parse(boxes.Item2.Text) < ((double)modelProperty.GetValue(dete))
+                                )
+                                {
+                                    return false;
+                                }
+                            }
+                            catch
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                    });
                 }
                 else
                 {
@@ -137,21 +184,23 @@ namespace KampoviZaDecu.generators
             return controlViewToCreate;
         }
 
-        private static TextBox CreateControlForNumericProperty(string modelNameOfLocalProperty, System.Reflection.PropertyInfo modelProperty)
+        private static Tuple<TextBox,TextBox> CreateControlForNumericProperty(string modelNameOfLocalProperty, System.Reflection.PropertyInfo modelProperty)
         {
-            var controlViewToCreate = new TextBox() { HorizontalAlignment = HorizontalAlignment.Stretch, TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, HorizontalContentAlignment = HorizontalAlignment.Center, FontSize = 20 };
-            
-
-            controlViewToCreate.PreviewTextInput += ControlViewToCreate_PreviewTextInput;
+            var controlViewToCreate1 = new TextBox() { Text = "0", HorizontalAlignment = HorizontalAlignment.Stretch, TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, HorizontalContentAlignment = HorizontalAlignment.Center, FontSize = 20 };
+            var controlViewToCreate2 = new TextBox() { Text = "0", HorizontalAlignment = HorizontalAlignment.Stretch, TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, HorizontalContentAlignment = HorizontalAlignment.Center, FontSize = 20 };
 
 
-            return controlViewToCreate;
+            controlViewToCreate1.PreviewTextInput += ControlViewToCreate_PreviewTextInput;
+            controlViewToCreate2.PreviewTextInput += ControlViewToCreate_PreviewTextInput;
+
+
+            return new Tuple<TextBox, TextBox>(controlViewToCreate1, controlViewToCreate2);
         }
 
         private static void ControlViewToCreate_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("^-?[0-9]*\\.[0-9]*");
-            e.Handled = regex.IsMatch(e.Text);
+            Regex regex = new Regex(@"^-?\d*[.]?\d*$");
+            e.Handled = !regex.IsMatch(e.Text);
         }
 
         private static Control CreateControlForPropertyOfUnknowType(string modelNameOfLocalProperty, System.Reflection.PropertyInfo modelProperty)

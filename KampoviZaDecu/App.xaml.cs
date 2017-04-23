@@ -10,6 +10,9 @@ namespace KampoviZaDecu
 {
     public partial class App : Application
     {
+
+        public static char CsvDelemiter = ',';
+
         public static readonly string[] DecaHeader = new string[] {
             "Ime",
             "Prezime",

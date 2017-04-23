@@ -146,7 +146,6 @@ namespace KampoviZaDecu
             {
                 _search = value;
                 NotifyPropertyChanged(nameof(Search));
-                _collectionView.Refresh();
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KampoviZaDecu.helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,11 @@ namespace KampoviZaDecu.generators
                 else if (currentDeteProperty.PropertyType == typeof(bool))
                 {
                     datagrid.Columns.Add(new DataGridCheckBoxColumn() { Header = current, Binding = new Binding(currentDeteProperty.Name) });
+                }
+                else if (currentDeteProperty.PropertyType.IsNumber())
+                {
+                    datagrid.Columns.Add(new DataGridTextColumn() { Header = current, Binding = new Binding(currentDeteProperty.Name) });
+
                 }
             }
         }

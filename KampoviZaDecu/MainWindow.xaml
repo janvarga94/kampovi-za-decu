@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:KampoviZaDecu"
         xmlns:kampoviZaDecu.converters="clr-namespace:KampoviZaDecu.converters"
         mc:Ignorable="d"
-        Title="Kampovi" Height="584.605" Width="1177.435" Background="WhiteSmoke">
+        Title="Kampovi" Height="584.605" Width="1229.435" Background="WhiteSmoke">
     <Window.InputBindings>
         <KeyBinding Command="{Binding Obrisi}" Key="F5"/>
     </Window.InputBindings>
@@ -19,8 +19,6 @@
                 <MultiBinding Converter="{StaticResource booleanAndConverter}">
                     <Binding ElementName="dodavanjeRadio" Path="IsChecked" />
                     <Binding Path="ProjekatOdabran" />
-                    <Binding Path="CurrentDete.Ime" />
-                    <Binding Path="CurrentDete.Prezime" />
                 </MultiBinding>
             </Button.IsEnabled>
         </Button>
@@ -34,7 +32,7 @@
             </TabItem>
         </TabControl>
 
-        <ScrollViewer Name="scrollVwrZaTabelu" HorizontalAlignment="Left" Height="494" Margin="424.843,50.689,0,0" VerticalAlignment="Top" Width="734">
+        <ScrollViewer Name="scrollVwrZaTabelu" HorizontalAlignment="Left" Height="494" Margin="425,51,0,0" VerticalAlignment="Top" Width="796">
             <Viewbox  Name="DataGridViewBox" VerticalAlignment="Top">
                 <Border Name="DataGridBorder">
                     <DataGrid BorderThickness="1" BorderBrush="LightGray" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray"   Name="tabela" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"   SelectedItem="{Binding Path=SelectedDete, Mode=TwoWay}" ItemsSource="{Binding Deca}" PreviewKeyDown="tabela_PreviewKeyDown" VerticalAlignment="Top" LoadingRow="tabela_LoadingRow">
@@ -61,7 +59,5 @@
         <Button Style="{StaticResource MetroButton}" IsEnabled="{Binding ProjekatOdabran}" Content="Sačuvaj izmene" HorizontalAlignment="Left" Margin="282,51,0,0" VerticalAlignment="Top" Width="131" Height="29" Click="Button_Click_3"/>
 
         <Button Style="{StaticResource MetroButton}" Content="Štampaj" HorizontalAlignment="Left"  Margin="1056,15.381,0,0" VerticalAlignment="Top" FontSize="14" Click="Button_Click_4" Width="85" Height="28.998"/>
-        <TextBox Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="32.784" Margin="483.856,11.099,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="197" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
-        <Label BorderThickness="1" Content="Search" HorizontalAlignment="Left" Margin="424.843,11.099,0,0" VerticalAlignment="Top" FontSize="16" BorderBrush="#FFE8BBBB"/>
     </Grid>
 </Window>
