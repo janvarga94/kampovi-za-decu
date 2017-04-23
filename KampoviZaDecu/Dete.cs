@@ -24,6 +24,6 @@ namespace KampoviZaDecu
         [EnabledFor(nameof(Sport))]
         public string KojiSport { get; set; }
         public string Plivanje { get; set; }
-        public string IznosKampa { get; set; }
+        public double IznosKampa { get; set; }
     }
 }

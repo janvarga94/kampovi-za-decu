@@ -25,7 +25,15 @@
             </Button.IsEnabled>
         </Button>
         <Label Content="Label" HorizontalAlignment="Left" Height="0" Margin="233.071,50.689,0,0" VerticalAlignment="Top" Width="12.014"/>
-        <Grid Name="deteForm" HorizontalAlignment="Left" Height="363" Margin="10,94,0,0" VerticalAlignment="Top" Width="399"/>
+        <TabControl  HorizontalAlignment="Left" Height="401" Margin="10,80,0,0" VerticalAlignment="Top" Width="399">
+            <TabItem Header="Add/Edit">
+                <Grid Name="deteForm"/>
+            </TabItem>
+            <TabItem Header="Filter">
+                <Grid Name="deteFilter"/>
+            </TabItem>
+        </TabControl>
+
         <ScrollViewer Name="scrollVwrZaTabelu" HorizontalAlignment="Left" Height="494" Margin="424.843,50.689,0,0" VerticalAlignment="Top" Width="734">
             <Viewbox  Name="DataGridViewBox" VerticalAlignment="Top">
                 <Border Name="DataGridBorder">

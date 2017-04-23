@@ -28,7 +28,7 @@ namespace KampoviZaDecu
                         Sport = splited[6] == true.ToString(),
                         KojiSport = splited[7],
                         Plivanje = splited[8],
-                        IznosKampa = splited[9]
+                        IznosKampa = double.Parse(splited[9])
                     });
                 }
             }

@@ -60,8 +60,10 @@
     <Compile Include="generators\DataGridGenerator.cs" />
     <Compile Include="generators\DecaGenerator.cs" />
     <Compile Include="FileThings.cs" />
+    <Compile Include="generators\FilterFormGenerator.cs" />
     <Compile Include="generators\FormGenerator.cs" />
     <Compile Include="helpers\ReflectionHelper.cs" />
+    <Compile Include="helpers\TypeChecks.cs" />
     <Compile Include="Stanje.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

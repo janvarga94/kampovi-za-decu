@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,27 +35,24 @@ namespace KampoviZaDecu.generators
 
                 if (modelProperty.PropertyType == typeof(string))
                 {
-                    controlViewToCreate = new TextBox() { HorizontalAlignment = HorizontalAlignment.Stretch, TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, HorizontalContentAlignment = HorizontalAlignment.Center, FontSize = 20 };
-                    Binding binding = new Binding();
-                    binding.Path = new PropertyPath(modelNameOfLocalProperty + "." + modelProperty.Name);
-                    binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-
-                    BindingOperations.SetBinding(controlViewToCreate, TextBox.TextProperty, binding);
-                    Grid.SetColumn(controlViewToCreate, 1);
-                    Grid.SetRow(controlViewToCreate, i);
-
-                    grid.Children.Add(controlViewToCreate);
-
+                    controlViewToCreate = CreateControlForStringProperty(modelNameOfLocalProperty, modelProperty);
                 }
                 else if (modelProperty.PropertyType == typeof(bool))
                 {
-                    controlViewToCreate = new CheckBox() { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
-                    Binding binding = new Binding();
-                    binding.Path = new PropertyPath(modelNameOfLocalProperty + "." + modelProperty.Name);
-                    binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                    controlViewToCreate = CreateControlForBoolProperty(modelNameOfLocalProperty, modelProperty);
+                }
+                else if (modelProperty.PropertyType.IsNumber())
+                {
+                    controlViewToCreate = CreateControlForNumericProperty(modelNameOfLocalProperty, modelProperty);
+                }
+                else
+                {
+                    controlViewToCreate = CreateControlForPropertyOfUnknowType(modelNameOfLocalProperty, modelProperty);
+                }
 
-                    BindingOperations.SetBinding(controlViewToCreate, CheckBox.IsCheckedProperty, binding);
-                    Grid.SetColumn(controlViewToCreate, 1);
+                if (controlViewToCreate != null)
+                {
+                    Grid.SetColumn(controlViewToCreate, 2);
                     Grid.SetRow(controlViewToCreate, i);
 
                     grid.Children.Add(controlViewToCreate);
@@ -70,6 +68,58 @@ namespace KampoviZaDecu.generators
                     BindingOperations.SetBinding(controlViewToCreate, TextBox.IsEnabledProperty, binding2);
                 }
             }
+        }
+        private static Control CreateControlForBoolProperty(string modelNameOfLocalProperty, System.Reflection.PropertyInfo modelProperty)
+        {
+            Control controlViewToCreate = new CheckBox() { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
+            Binding binding = new Binding();
+            binding.Path = new PropertyPath(modelNameOfLocalProperty + "." + modelProperty.Name);
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+            BindingOperations.SetBinding(controlViewToCreate, CheckBox.IsCheckedProperty, binding);
+
+            return controlViewToCreate;
+        }
+
+        private static Control CreateControlForStringProperty(string modelNameOfLocalProperty, System.Reflection.PropertyInfo modelProperty)
+        {
+            Control controlViewToCreate = new TextBox() { HorizontalAlignment = HorizontalAlignment.Stretch, TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, HorizontalContentAlignment = HorizontalAlignment.Center, FontSize = 20 };
+            Binding binding = new Binding();
+            binding.Path = new PropertyPath(modelNameOfLocalProperty + "." + modelProperty.Name);
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+            BindingOperations.SetBinding(controlViewToCreate, TextBox.TextProperty, binding);
+
+            return controlViewToCreate;
+        }
+
+        private static Control CreateControlForNumericProperty(string modelNameOfLocalProperty, System.Reflection.PropertyInfo modelProperty)
+        {
+            Control controlViewToCreate = new TextBox() { HorizontalAlignment = HorizontalAlignment.Stretch, TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, HorizontalContentAlignment = HorizontalAlignment.Center, FontSize = 20 };
+            Binding binding = new Binding();
+            binding.Path = new PropertyPath(modelNameOfLocalProperty + "." + modelProperty.Name);
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+            BindingOperations.SetBinding(controlViewToCreate, TextBox.TextProperty, binding);
+
+
+            controlViewToCreate.PreviewTextInput += ControlViewToCreate_PreviewTextInput;
+
+
+            return controlViewToCreate;
+        }
+
+        private static void ControlViewToCreate_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("^-?[0-9]*\\.[0-9]*");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private static Control CreateControlForPropertyOfUnknowType(string modelNameOfLocalProperty, System.Reflection.PropertyInfo modelProperty)
+        {
+            Control controlViewToCreate = new Label() { Content = "unimplemented", HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Center, VerticalContentAlignment = VerticalAlignment.Center, HorizontalContentAlignment = HorizontalAlignment.Center, FontSize = 20 };
+
+            return controlViewToCreate;
         }
     }
 }

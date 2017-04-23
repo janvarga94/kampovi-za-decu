@@ -69,6 +69,14 @@ namespace KampoviZaDecu
             }
         }
 
+        private Dete _filterDecu;
+        public Dete FilterDecu
+        {
+            get { return _filterDecu; }
+            set { _filterDecu = value; }
+        }
+
+
         public ObservableCollection<Dete> Deca { get; set; } = new ObservableCollection<Dete>();
 
         private Stanje _stanje;
@@ -151,18 +159,17 @@ namespace KampoviZaDecu
 
             new DataGridGenerator().Generate(typeof(Dete), App.DecaHeader, tabela);
             new FormGenerator().Generate(CurrentDete, nameof(CurrentDete), App.DecaHeader, deteForm);
-    
-            _collectionView.Filter = (object dete) =>
-            {
-                var ddete = (Dete)dete;
-                if(ddete.Ime != null && ddete.Prezime != null)
-                    return ddete.Ime.ToLower().Contains(_search.ToLower()) ||
-                        ddete.Prezime.ToLower().Contains(_search.ToLower());
+            var filterGenerator = new FilterFormGenerator();
+            var filterPredicate = filterGenerator.Generate(CurrentDete, nameof(CurrentDete), App.DecaHeader, deteFilter);
+            filterGenerator.FilterChange += FilterGenerator_FilterChange;
 
-                Console.WriteLine("Bro, ovo ispravi");
-                return false; //this shouldnt be happening
-            };
+            _collectionView.Filter = filterPredicate;
 
+        }
+
+        private void FilterGenerator_FilterChange()
+        {
+            _collectionView.Refresh();
         }
 
         //

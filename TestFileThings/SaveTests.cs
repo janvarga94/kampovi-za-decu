@@ -14,8 +14,8 @@ namespace TestFileThings
         {
             var deca = new List<Dete>()
             {
-                new Dete{ Ime = "fsdfsdsdf", IznosKampa = "21312", Sport = true},
-                new Dete{ Ime = "hgffsdfsdsdf", IznosKampa = "21312", Sport = false},
+                new Dete{ Ime = "fsdfsdsdf", IznosKampa = 21312, Sport = true},
+                new Dete{ Ime = "hgffsdfsdsdf", IznosKampa = 21312, Sport = false},
             };
 
             FileThings.Save("C:\\Users\\janva\\Desktop\\hhhhhhhhhhh.csv", deca);
