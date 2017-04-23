@@ -58,6 +58,6 @@
         <RadioButton IsEnabled="False" Name="izmenaRadio" GroupName="dodIz" Content="Izmena" HorizontalAlignment="Left" Margin="10,506.618,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Button Style="{StaticResource MetroButton}" IsEnabled="{Binding ProjekatOdabran}" Content="Sačuvaj izmene" HorizontalAlignment="Left" Margin="282,51,0,0" VerticalAlignment="Top" Width="131" Height="29" Click="Button_Click_3"/>
 
-        <Button Style="{StaticResource MetroButton}" Content="Štampaj" HorizontalAlignment="Left"  Margin="1056,15.381,0,0" VerticalAlignment="Top" FontSize="14" Click="Button_Click_4" Width="85" Height="28.998"/>
+        <Button Style="{StaticResource MetroButton}" Content="Štampaj" HorizontalAlignment="Left"  Margin="1116,10,0,0" VerticalAlignment="Top" FontSize="14" Click="Button_Click_4" Width="85" Height="29"/>
     </Grid>
 </Window>
