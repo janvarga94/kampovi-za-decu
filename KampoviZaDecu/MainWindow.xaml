@@ -14,6 +14,10 @@
         <kampoviZaDecu.converters:BooleanAndConverter x:Key="booleanAndConverter" />
     </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="420"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Button Style="{StaticResource MetroButton}" Content="Dodaj"  Width="109" Height="35" HorizontalAlignment="Left"  Margin="179,502.605,0,0" VerticalAlignment="Top"  FontSize="18" Click="Button_Click">
             <Button.IsEnabled>
                 <MultiBinding Converter="{StaticResource booleanAndConverter}">
@@ -23,7 +27,7 @@
             </Button.IsEnabled>
         </Button>
         <Label Content="Label" HorizontalAlignment="Left" Height="0" Margin="233.071,50.689,0,0" VerticalAlignment="Top" Width="12.014"/>
-        <TabControl  HorizontalAlignment="Left" Height="401" Margin="10,80,0,0" VerticalAlignment="Top" Width="399">
+        <TabControl  HorizontalAlignment="Left" Height="401" Margin="10,95.058,0,0" VerticalAlignment="Top" Width="403.955">
             <TabItem Header="Add/Edit">
                 <Grid Name="deteForm"/>
             </TabItem>
@@ -32,7 +36,7 @@
             </TabItem>
         </TabControl>
 
-        <ScrollViewer Name="scrollVwrZaTabelu" HorizontalAlignment="Left" Height="494" Margin="425,51,0,0" VerticalAlignment="Top" Width="796">
+        <ScrollViewer Name="scrollVwrZaTabelu" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="8" Margin="0,10,0,0">
             <Viewbox  Name="DataGridViewBox" VerticalAlignment="Top">
                 <Border Name="DataGridBorder">
                     <DataGrid BorderThickness="1" BorderBrush="LightGray" VerticalGridLinesBrush="LightGray" HorizontalGridLinesBrush="LightGray"   Name="tabela" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"   SelectedItem="{Binding Path=SelectedDete, Mode=TwoWay}" ItemsSource="{Binding Deca}" PreviewKeyDown="tabela_PreviewKeyDown" VerticalAlignment="Top" LoadingRow="tabela_LoadingRow">
@@ -54,10 +58,10 @@
         <TextBlock HorizontalAlignment="Left" Height="31.806" Margin="23,42.309,0,0" TextWrapping="Wrap" Text="{Binding NazivProjekta}" VerticalAlignment="Top" Width="254" FontSize="20" TextDecorations="{x:Null}"/>
         <Button Style="{StaticResource MetroButton}" Content="Novi" HorizontalAlignment="Left" Margin="282,10,0,0" VerticalAlignment="Top" FontSize="18" Click="Button_Click_1"/>
         <Button Style="{StaticResource MetroButton}" Content="Otvori" HorizontalAlignment="Left"  Margin="344.498,9.943,0,0" VerticalAlignment="Top" FontSize="18" Click="Button_Click_2"/>
-        <RadioButton Name="dodavanjeRadio" GroupName="dodIz" IsChecked="True" Content="Dodavanje" HorizontalAlignment="Left" Margin="10,486.338,0,0" VerticalAlignment="Top" FontSize="16" Checked="dodavanjeRadio_Checked_1"/>
-        <RadioButton IsEnabled="False" Name="izmenaRadio" GroupName="dodIz" Content="Izmena" HorizontalAlignment="Left" Margin="10,506.618,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Button Style="{StaticResource MetroButton}" IsEnabled="{Binding ProjekatOdabran}" Content="Sačuvaj izmene" HorizontalAlignment="Left" Margin="282,51,0,0" VerticalAlignment="Top" Width="131" Height="29" Click="Button_Click_3"/>
+        <RadioButton Name="dodavanjeRadio" GroupName="dodIz" IsChecked="True" Content="Dodavanje" HorizontalAlignment="Left" Margin="314.746,501.058,0,0" VerticalAlignment="Top" FontSize="16" Checked="dodavanjeRadio_Checked_1"/>
+        <RadioButton IsEnabled="False" Name="izmenaRadio" GroupName="dodIz" Content="Izmena" HorizontalAlignment="Left" Margin="314.746,521.325,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Button Style="{StaticResource MetroButton}" IsEnabled="{Binding ProjekatOdabran}" Content="Sačuvaj izmene" HorizontalAlignment="Left" Margin="282,48.342,0,0" VerticalAlignment="Top" Width="131.955" Height="29" Click="Button_Click_3"/>
 
-        <Button Style="{StaticResource MetroButton}" Content="Štampaj" HorizontalAlignment="Left"  Margin="1116,10,0,0" VerticalAlignment="Top" FontSize="14" Click="Button_Click_4" Width="85" Height="29"/>
+        <Button Style="{StaticResource MetroButton}" Content="Štampaj" HorizontalAlignment="Left"  Margin="282,82.342,0,0" VerticalAlignment="Top" FontSize="14" Click="Button_Click_4" Width="131.955" Height="29"/>
     </Grid>
 </Window>
