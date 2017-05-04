@@ -292,5 +292,12 @@ namespace KampoviZaDecu
             if (((RadioButton)e.Source).IsChecked == true)
                 Stanje = Stanje.Dodavanje;
         }
+
+
+
+        private void winddow_SizeChanged_1(object sender, SizeChangedEventArgs e)
+        {
+            scrollVwrZaTabelu.MaxHeight = e.NewSize.Height - 50;
+        }
     }
 }

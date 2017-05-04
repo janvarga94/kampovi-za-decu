@@ -38,12 +38,13 @@
                                 x:Name="Border"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}" />
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Opacity="0.9"/>
 
                             <ContentPresenter
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 Margin="{TemplateBinding Padding}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"                            
                                 RecognizesAccessKey="True" />
                         </Grid>
                         <ControlTemplate.Triggers>
